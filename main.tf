@@ -1,0 +1,21 @@
+provider "aws" {
+  region = "ap-south-1"
+}
+
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/*/ubuntu-*-24.04-amd64-server-*"]
+  }
+  owners = ["099720109477"]
+}
+
+resource "aws_instance" "app_server" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3.micro"
+
+  tags = {
+    Name = "learn-terraform"
+  }
+}
