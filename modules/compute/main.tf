@@ -9,15 +9,17 @@ resource "aws_instance" "web_server" {
   availability_zone = "ap-south-1a"
   security_groups = [aws_security_group.web_server_sg.id] 
   subnet_id = var.subnet_id
+  key_name = aws_key_pair.learn-aws.key_name
 }
 resource "aws_instance" "web_server_2" {
-  ami           = "ami-01ca13db604661046" #Red Hat Enterprise Linux version 10 (HVM), EBS General Purpose (SSD) Volume Type
+  ami           = var.ami #Red Hat Enterprise Linux version 10 (HVM), EBS General Purpose (SSD) Volume Type
   instance_type = var.instance_type
 
   tags = {Name = "web-server_2"}
   availability_zone = "ap-south-1b"
   security_groups = [aws_security_group.web_server_sg_2.id] 
   subnet_id = var.subnet_id_2
+  key_name = aws_key_pair.learn-aws.key_name
 }
 resource "aws_security_group" "web_server_sg" {
   name        = var.web-server-sg
@@ -75,3 +77,8 @@ resource "aws_security_group" "web_server_sg_2" {
         Name = var.web-server-sg-2
         }
 }
+resource "aws_key_pair" "learn-aws" {
+  key_name   = "learn-aws-key"
+  public_key = file("C:/Users/mkhat/Downloads/learn-aws-pub")
+}
+ 
