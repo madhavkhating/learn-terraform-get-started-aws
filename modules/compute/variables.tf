@@ -3,27 +3,13 @@ variable "vpc_id" {
     type        = string
     default = "aws_vpc.learn_terraform_vpc.id"       
     }
-variable "subnet_id" { 
-    description = "The ID of the Subnet where the first web server will be created" 
-    type        = string
-    default = "aws_subnet.private_subnet.id"       
-    }
-variable "subnet_id_2" {
-    description = "The ID of the Subnet where the second web server will be created" 
-    type        = string
-    default = "aws_subnet.private_subnet_2.id"       
-    }
-    
-variable "web-server-sg" {
+ 
+ variable "web-server-sg" {
     description = "The name of the security group for web servers"
     type        = string
     default = "web-server-sg"       
     }
-variable "web-server-sg-2" {
-    description = "The name of the security group for web servers"
-    type        = string
-    default = "web-server-sg-2"       
-    }
+
 variable "instance_type" {
     description = "The type of instance to use for the web servers"
     type        = string
@@ -34,3 +20,14 @@ variable "ami" {
     type        = string
     default = "ami-01ca13db604661046"       
     }
+
+variable "subnet_ids" {
+  description = "A list of subnet IDs for different AZs"
+  type        = list(string)
+  default     = ["public-subnet", "public-subnet-2", "public-subnet-3"]
+}
+variable "availability_zones" {
+  description = "A list of availability zones"
+  type        = list(string)
+  default     = ["ap-south-1a", "ap-south-1b", "ap-south-1c"]
+}
